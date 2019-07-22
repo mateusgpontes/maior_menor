@@ -17,13 +17,42 @@ def da_boas_vindas
     return nome
 end
 
-def escolhe_numero
-    puts "Escolha um numero de 0 a 200..."
+def pede_dificuldade
+    puts "Qual o nivel de difículdade que deseja? (Escolha pelo número da Difículdade. ex:1)"
+    puts "\n"
+    puts "1 Fácil, escolhe um número de 0 a 30"
+    puts "\n"
+    puts "2 Médio, escolhe um número de 0 a 60"
+    puts "\n"
+    puts "3 Difícil, escolhe um número de 0 a 100"
+    puts "\n"
+    puts "4 Expert, escolhe um número de 0 a 150"
+    puts "\n"
+    puts "5 Profissional, escolhe um número de 0 a 200"
+    puts "\n"
+    dificuldade = gets.to_i
+end
+
+def escolhe_numero(dificuldade)
+    if dificuldade == 1 
+        maximo = 30
+    elsif dificuldade == 2
+        maximo = 60
+    elsif dificuldade == 3
+        maximo = 100
+    elsif dificuldade == 4
+        maximo = 150
+    elsif dificuldade == 5
+        maximo = 200    
+    else
+        return pede_dificuldade
+    end
+    puts "Escolha um numero de 0 a #{maximo}"
     puts "\n"
     puts "Adivinhe o número secreto."
     puts "\n\n"
     #return
-    number = 165
+    number = rand(maximo)
 end
 
 def pega_um_numero (chute_anterior, tentativa_atual, tentativas_total)
@@ -73,11 +102,12 @@ def verifica_se_acertou (number, chute_number, tentativa_atual, tentativa_total,
 end
 
 nome = da_boas_vindas
-secret_number = escolhe_numero
+dif = pede_dificuldade
+secret_number = escolhe_numero(pede_dificuldade)
 tentativas = 5
 chutes = []
 pontos = 1000
-puts "Você tem #{pontos}"
+puts "Você tem #{pontos} Pontos"
 puts "\n\n"
 
 for tentativa in 1..tentativas
@@ -91,3 +121,5 @@ for tentativa in 1..tentativas
         break
     end
 end
+
+puts "o numero secreto era #{secret_number}"
