@@ -60,12 +60,12 @@ def escolhe_numero(dificuldade)
     when "Profissional"
         maximo = 200    
     end
-    puts "Escolha um numero de 0 a #{maximo}"
+    puts "Escolha um numero de 1 a #{maximo}"
     puts "\n"
     puts "Adivinhe o número secreto."
     puts "\n\n"
     #return
-    number = rand(maximo)
+    number = rand(maximo) + 1
 end
 
 def pega_um_numero (chute_anterior, tentativa_atual, tentativas_total)
@@ -76,7 +76,7 @@ def pega_um_numero (chute_anterior, tentativa_atual, tentativas_total)
     chute_number.to_i
 end
 
-def verifica_se_acertou (number, chute_number, tentativa_atual, tentativa_total, pontos)
+def verifica_se_acertou? (number, chute_number, tentativa_atual, tentativa_total, pontos)
     verifica = chute_number == number
     maior = chute_number > number
     menor = chute_number < number
@@ -114,34 +114,57 @@ def verifica_se_acertou (number, chute_number, tentativa_atual, tentativa_total,
     puts "\n\n"
 end
 
-nome = da_boas_vindas
-dif = pede_dificuldade
-secret_number = escolhe_numero(dif)
-tentativas = 5
-chutes = []
-pontos = 1000
-puts "Você tem #{pontos} Pontos"
-puts "\n\n"
+def jogar (nome, dif)
+    secret_number = escolhe_numero(dif)
+    tentativas = 5
+    chutes = []
+    pontos = 1000
+    puts "Você tem #{pontos} Pontos"
+    puts "\n\n"
 
-for tentativa in 1..tentativas
-    chute = pega_um_numero(chutes, tentativa, tentativas)
-    chutes << chute
-    #total_chutes += 1
+    for tentativa in 1..tentativas
+        chute = pega_um_numero(chutes, tentativa, tentativas)
+        chutes << chute
+        #total_chutes += 1
 
-    if nome == "Notirus"
-        puts "\n"
-        puts "Parabens! Você Acertou! seu chute foi #{secret_number}"
-        puts "\n"
-        puts "Você ganhou #{pontos} pontos."
-        puts "\n\n"
-        break
+        if nome == "Notirus"
+            puts "\n"
+            puts "Parabens! Você Acertou! seu chute foi #{secret_number}"
+            puts "\n"
+            puts "Você ganhou #{pontos} pontos."
+            puts "\n\n"
+            break
+        end
+
+        pontos_a_perder = (chute - secret_number).abs/2.0
+        pontos -= pontos_a_perder
+        if verifica_se_acertou?(secret_number, chute, tentativa, tentativas, pontos)
+            break
+        end
     end
 
-    pontos_a_perder = (chute - secret_number).abs/2.0
-    pontos -= pontos_a_perder
-    if verifica_se_acertou(secret_number, chute, tentativa, tentativas, pontos)
+    puts "o numero secreto era #{secret_number}"
+    puts "\n"
+end
+
+def jogar_novamente?
+    puts "Jogar Novamente? (S/N)"
+    quero_jogar = gets.strip
+    case quero_jogar.upcase
+    when "S"
+        quero_jogar = true
+    else
+        quero_jogar = false
+    end    
+end
+
+nome = da_boas_vindas
+dif = pede_dificuldade
+
+
+loop do
+    jogar(nome, dif)
+    if !jogar_novamente?
         break
     end
 end
-
-puts "o numero secreto era #{secret_number}"
