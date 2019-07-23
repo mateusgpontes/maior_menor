@@ -31,21 +31,32 @@ def pede_dificuldade
     puts "5 Profissional, escolhe um número de 0 a 200"
     puts "\n"
     dificuldade = gets.to_i
+    if dificuldade == 1
+        dificuldade = "Fácil"
+    elsif dificuldade == 2
+        dificuldade = "Médio"
+    elsif dificuldade == 3
+        dificuldade = "Difícil"  
+    elsif dificuldade == 4
+        dificuldade = "Expert"        
+    elsif dificuldade == 5
+        dificuldade = "Profissional"        
+    else 
+        pede_dificuldade
+    end               
 end
 
 def escolhe_numero(dificuldade)
-    if dificuldade == 1 
+    if dificuldade == "Fácil"
         maximo = 30
-    elsif dificuldade == 2
+    elsif dificuldade == "Médio"
         maximo = 60
-    elsif dificuldade == 3
+    elsif dificuldade == "Difícil"
         maximo = 100
-    elsif dificuldade == 4
+    elsif dificuldade == "Expert"
         maximo = 150
-    elsif dificuldade == 5
+    elsif dificuldade == "Profissional"
         maximo = 200    
-    else
-        return pede_dificuldade
     end
     puts "Escolha um numero de 0 a #{maximo}"
     puts "\n"
@@ -103,7 +114,7 @@ end
 
 nome = da_boas_vindas
 dif = pede_dificuldade
-secret_number = escolhe_numero(pede_dificuldade)
+secret_number = escolhe_numero(dif)
 tentativas = 5
 chutes = []
 pontos = 1000
