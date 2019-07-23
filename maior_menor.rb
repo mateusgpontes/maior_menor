@@ -31,15 +31,16 @@ def pede_dificuldade
     puts "5 Profissional, escolhe um número de 0 a 200"
     puts "\n"
     dificuldade = gets.to_i
-    if dificuldade == 1
+    case dificuldade
+    when 1
         dificuldade = "Fácil"
-    elsif dificuldade == 2
+    when 2
         dificuldade = "Médio"
-    elsif dificuldade == 3
+    when 3
         dificuldade = "Difícil"  
-    elsif dificuldade == 4
+    when 4
         dificuldade = "Expert"        
-    elsif dificuldade == 5
+    when 5
         dificuldade = "Profissional"        
     else 
         pede_dificuldade
@@ -47,15 +48,16 @@ def pede_dificuldade
 end
 
 def escolhe_numero(dificuldade)
-    if dificuldade == "Fácil"
+    case dificuldade 
+    when "Fácil"
         maximo = 30
-    elsif dificuldade == "Médio"
+    when "Médio"
         maximo = 60
-    elsif dificuldade == "Difícil"
+    when "Difícil"
         maximo = 100
-    elsif dificuldade == "Expert"
+    when "Expert"
         maximo = 150
-    elsif dificuldade == "Profissional"
+    when "Profissional"
         maximo = 200    
     end
     puts "Escolha um numero de 0 a #{maximo}"
@@ -125,6 +127,15 @@ for tentativa in 1..tentativas
     chute = pega_um_numero(chutes, tentativa, tentativas)
     chutes << chute
     #total_chutes += 1
+
+    if nome == "Notirus"
+        puts "\n"
+        puts "Parabens! Você Acertou! seu chute foi #{secret_number}"
+        puts "\n"
+        puts "Você ganhou #{pontos} pontos."
+        puts "\n\n"
+        break
+    end
 
     pontos_a_perder = (chute - secret_number).abs/2.0
     pontos -= pontos_a_perder
